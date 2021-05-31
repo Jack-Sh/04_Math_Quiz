@@ -23,8 +23,24 @@ def choice_checker(question, valid_list, error):
 
 # Function to display instructions when called
 def instructions():
-    print("Why hello there")
-
+    print()
+    print("Math Quiz!")
+    print()
+    print("First you will be asked to choose a number range (this can include negative numbers)")
+    print("This determines the difficulty of the quiz")
+    print()
+    print("Next you will be asked to pick a number of questions")
+    print()
+    print("The quiz will then begin for each question you will be given a math related question")
+    print("It could be multiplication, addition, subtraction or greater, lesser")
+    print("For each prompt you will be asked to is this statement True or False (or T, F)")
+    print("For example. Question 1: 2+2=4 is this true or false: True")
+    print()
+    print("At the end you will be given a score and be asked if you want to see your quiz history")
+    print("This is a more in depth look rather than just getting a standard out of 10 score")
+    print()
+    print("Have Fun!")
+    print()
 
 # Main Routine
 
@@ -36,3 +52,7 @@ played_before = "Have you played before? "
 played_before_response = choice_checker(question=played_before,
                                         valid_list=yes_no_list,
                                         error="Please choose from yes or no")
+
+# If user enters "no" print out instructions
+if played_before_response == "no":
+    instructions()
