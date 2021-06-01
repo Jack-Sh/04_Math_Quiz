@@ -1,7 +1,7 @@
 # MQ component 1 - add a yes, no checker and add instructions function
 
 
-# Fucntion to check if the user entered a valid answer (text)
+# Function to check if the user entered a valid answer (text)
 def choice_checker(question, valid_list, error):
     valid = False
     while not valid:
@@ -41,6 +41,7 @@ def instructions():
     print()
     print("Have Fun!")
     print()
+
 
 # Main Routine
 
