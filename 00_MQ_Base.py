@@ -1,3 +1,6 @@
+import random
+
+
 # Function to check if the user entered a valid answer (text)
 def choice_checker(question, valid_list, error):
     valid = False
@@ -93,6 +96,8 @@ def int_check(question, low=None, high=None, exit_code=None):
 
 # Valid lists
 yes_no_list = ["yes", "no"]
+statement_list = ["addition", "subtraction", "multiplication", "greater_lesser"]
+
 
 # Ask the user if they have played before
 played_before = "Have you played before? "
@@ -107,5 +112,58 @@ if played_before_response == "no":
 # asks for lowest and highest aswell as checking that their valid
 lowest = int_check("Lowest Number: ")
 highest = int_check("Highest Number: ", lowest + 1)
+
 # ask for number of questions
 questions = int_check("How many questions would you like to answer? ", 1)
+
+statement = random.choice(statement_list)
+
+# variable to choose between correct and incorrect answers (1 = correct, 2 = incorrect)
+chosen_num = random.randint(1,2)
+
+# generates two random numbers between lowest and highest
+num_1 = random.randint(lowest, highest)
+num_2 = random.randint(lowest, highest)
+
+# based off of the randomly chosen statement 
+# output the equation with correct answer or an incorrect answer
+if statement == "addition":
+    if chosen_num == 1:
+
+        answer = int(num_1 + num_2)
+    else:
+        answer = random.randint(lowest, highest)
+
+    question = "{} + {} = {}".format(num_1, num_2, answer)
+
+elif statement == "subtraction":
+    if chosen_num == 1:
+
+        answer = int(num_1 - num_2)
+    else:
+
+        answer = random.randint(lowest, highest)
+
+    question = "{} - {} = {}".format(num_1, num_2, answer)
+
+elif statement == "multiplication":
+    if chosen_num == 1:
+
+        answer = int(num_1 * num_2)
+    else:
+
+        answer = random.randint(lowest, highest)
+
+    question = "{} x {} = {}".format(num_1, num_2, answer)
+
+else:
+    if chosen_num == 1:
+
+        question = "{} > {}".format(num_1, num_2)
+
+    else:
+
+        question = "{} < {}".format(num_1, num_2)
+
+print(question)
+
