@@ -32,24 +32,35 @@ yes_no_list = ["yes", "no"]
 
 allow_negative = choice_checker("Do you want negatives in subtraction questions? ", yes_no_list, "Please enter yes or no ")
 
-for item in range(1,10):
+for item in range(1, 10):
 
     # variable to choose between correct and incorrect answers (1 = correct, 2 = incorrect)
     chosen_num = random.randint(1,2)
 
     # generates two random numbers between lowest and highest
-    num_1 = random.randint(lowest, highest)
-    num_2 = random.randint(lowest, highest)
-
     if statement == "subtraction" and allow_negative == "yes":
+        num_1 = random.randint(lowest, highest)
+        num_2 = random.randint(lowest, highest)
+
         if chosen_num == 1:
 
             answer = int(num_1 - num_2)
+
         else:
 
             answer = random.randint(lowest, highest)
     
-    elif statement == "subtraction" and 
+    elif statement == "subtraction" and allow_negative == "no":
+        num_2 = random.randint(lowest, highest)
+        num_1 = random.randint(num_2, highest)
+
+        if chosen_num == 1:
+
+            answer = int(num_1 - num_2)
+        
+        else:
+
+            answer = random.randint(lowest, highest)
 
     question = "{} - {} = {}".format(num_1, num_2, answer)
 
