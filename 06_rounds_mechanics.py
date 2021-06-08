@@ -61,6 +61,7 @@ while questions_answered != questions:
 
     heading = "Question {} of {}".format(questions_answered + 1, questions)
     print(heading)
+    print()
     questions_answered += 1
     
     equation = "2 + 2 = 4"
@@ -68,10 +69,7 @@ while questions_answered != questions:
     print()
 
     true_false = input("True or false? ")
+    print()
 
-    if true_false == "true":
-        print("correct")
-        continue
-    elif true_false == "false":
-        print("wrong")
+    if true_false == "":
         continue

@@ -94,9 +94,12 @@ def int_check(question, low=None, high=None, exit_code=None):
 # Main Routine
 
 
+questions_answered = 0
+
 # Valid lists
 yes_no_list = ["yes", "no"]
-statement_list = ["addition", "subtraction", "multiplication", "greater_lesser"]
+equation_list = ["addition", "subtraction", "multiplication", "greater_lesser"]
+true_false_list = ["true", "false"]
 
 
 # Ask the user if they have played before
@@ -119,59 +122,100 @@ allow_negative = choice_checker("Do you want negatives in subtraction questions?
 # Ask for number of questions
 questions = int_check("How many questions would you like to answer? ", 1)
 
-statement = random.choice(statement_list)
+# start of game loop
+while questions_answered != questions:
 
-# variable to choose between correct and incorrect answers (1 = correct, 2 = incorrect)
-chosen_num = random.randint(1, 2)
+    # generates and prints heading before every question
+    heading = "Question {} of {}".format(questions_answered + 1, questions)
+    print()
+    print(heading)
+    print()
+    # add one to round counter
+    questions_answered += 1
 
-# generates two random numbers between lowest and highest
-if statement == "subtraction" and allow_negative == "no":
-    num_2 = random.randint(lowest, highest)
-    num_1 = random.randint(num_2, highest)
+    equation = random.choice(equation_list)
 
-else:
-    num_1 = random.randint(lowest, highest)
-    num_2 = random.randint(lowest, highest)
+    # variable to choose between correct and incorrect answers (1 = correct, 2 = incorrect)
+    chosen_num = random.randint(1, 2)
 
-# based off of the randomly chosen statement 
-# output the equation with correct answer or an incorrect answer
-if statement == "addition":
-    if chosen_num == 1:
-
-        answer = int(num_1 + num_2)
-    else:
-        answer = random.randint(lowest, highest)
-
-    question = "{} + {} = {}".format(num_1, num_2, answer)
-
-elif statement == "subtraction":
-    if chosen_num == 1:
-
-        answer = int(num_1 - num_2)
-    else:
-
-        answer = random.randint(lowest, highest)
-
-    question = "{} - {} = {}".format(num_1, num_2, answer)
-
-elif statement == "multiplication":
-    if chosen_num == 1:
-
-        answer = int(num_1 * num_2)
-    else:
-
-        answer = random.randint(lowest, highest)
-
-    question = "{} x {} = {}".format(num_1, num_2, answer)
-
-else:
-    if chosen_num == 1:
-
-        question = "{} > {}".format(num_1, num_2)
+    # generates two random numbers between lowest and highest
+    if equation == "subtraction" and allow_negative == "no":
+        num_2 = random.randint(lowest, highest)
+        num_1 = random.randint(num_2, highest)
 
     else:
+        num_1 = random.randint(lowest, highest)
+        num_2 = random.randint(lowest, highest)
 
-        question = "{} < {}".format(num_1, num_2)
+    # based off of the randomly chosen statement 
+    # output the equation with correct answer or an incorrect answer
+    if equation == "addition":
+        correct_answer = int(num_1 + num_2)
+        if chosen_num == 1:
 
-print(question)
+            answer = int(num_1 + num_2)
+        else:
+            answer = random.randint(lowest, highest)
 
+        question = "{} + {} = {}".format(num_1, num_2, answer)
+
+    elif equation == "subtraction":
+        correct_answer = int(num_1 - num_2)
+        if chosen_num == 1:
+
+            answer = int(num_1 - num_2)
+        else:
+
+            answer = random.randint(lowest, highest)
+
+        question = "{} - {} = {}".format(num_1, num_2, answer)
+
+    elif equation == "multiplication":
+        correct_answer = int(num_1 * num_2)
+        if chosen_num == 1:
+
+            answer = int(num_1 * num_2)
+        else:
+
+            answer = random.randint(lowest, highest)
+
+        question = "{} x {} = {}".format(num_1, num_2, answer)
+
+    else:
+        if chosen_num == 1:
+
+            question = "{} > {}".format(num_1, num_2)
+
+        else:
+
+            question = "{} < {}".format(num_1, num_2)
+
+    # prints randomly generated equation
+    print(question)
+
+    # asks user whether the equation is true or false
+    true_false = choice_checker("Is this equation True or False? ", true_false_list, "Please enter true or false")
+
+    # if the answer is correct and user enters true give feedback (correct)
+    if chosen_num == 1:
+        if true_false == "true":
+            print("correct")
+
+        # if the answer is incorrect and the user enetrs true give feedback (incorrect)
+        else:
+            print("incorrect")
+
+    # incorrect answers
+    else:
+        # if the randomly generated number is the correct answer and the user enters true
+        # give feedback (correct)
+        if true_false == "true" and answer == correct_answer:
+            print("correct")
+
+        # if the answer is incorrect and user enters false give feedback (correct)
+        elif true_false == "false":
+            print("correct")
+
+        # if the user enters true and the answer is incorrect give feedback (incorrect)
+        else:
+            print("incorrect")
