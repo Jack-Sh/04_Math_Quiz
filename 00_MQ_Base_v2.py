@@ -148,49 +148,49 @@ while questions_answered != questions:
 
     # based off of the randomly chosen statement 
     # output the equation with correct answer or an incorrect answer
+
     if equation == "addition":
-        correct_answer = int(num_1 + num_2)
-        if chosen_num == 1:
-
-            answer = int(num_1 + num_2)
-        else:
-            answer = random.randint(lowest, highest)
-
-        question = "{} + {} = {}".format(num_1, num_2, answer)
+        symbol = "+"
 
     elif equation == "subtraction":
-        correct_answer = int(num_1 - num_2)
-        if chosen_num == 1:
-
-            answer = int(num_1 - num_2)
-        else:
-
-            answer = random.randint(lowest, highest)
-
-        question = "{} - {} = {}".format(num_1, num_2, answer)
+        symbol = "-"
 
     elif equation == "multiplication":
-        correct_answer = int(num_1 * num_2)
-        if chosen_num == 1:
+        symbol = "*"
 
-            answer = int(num_1 * num_2)
-        else:
+    num_question = "{} {} {}".format(num_1, symbol, num_2)
 
-            answer = random.randint(lowest, highest)
-
-        question = "{} x {} = {}".format(num_1, num_2, answer)
+    if chosen_num == 1:
+        correct_answer = eval(num_question)
+        answer = "true"
 
     else:
-        if chosen_num == 1:
+        correct_answer = random.randint(lowest, highest)
+        answer = "false"
 
-            question = "{} > {}".format(num_1, num_2)
+    if equation == "muliplication":
+        question = "{} x {} = {}".format(num_1, num_2, correct_answer)
+
+    elif equation == "addition" or "subtraction":
+        question = "{} {} {} = {}".format(num_1, num_2, symbol, correct_answer)
+        
+    if equation == "greater_lesser":
+
+        chosen_num = random.randint(1, 3)
+
+        if chosen_num == 1:
+            symbol = "=="
+
+        elif chosen_num == 2:
+            symbol = "<"
 
         else:
+            symbol = ">"
 
-            question = "{} < {}".format(num_1, num_2)
+        question = "{} {} {}".format(num_1, symbol, num_2)
 
         correct_answer = eval(question)
-        answer = eval(question)
+        answer = ""
 
         if correct_answer == True:
             answer = "true"
@@ -203,34 +203,7 @@ while questions_answered != questions:
     # asks user whether the equation is true or false
     true_false = choice_checker("Is this equation True or False? ", true_false_list, "Please enter true or false")
 
-    # if the answer is correct and user enters true give feedback (correct)
-    if chosen_num == 1:
-        if true_false == "true":
-            print("Correct")
-
-        # if the answer is incorrect and the user enetrs true give feedback (incorrect)
-        else:
-            print("Incorrect")
-    
-    elif equation == "greater_lesser":
-        if true_false == answer:
-            print("Correct")
-
-        else:
-            print("Incorrect")
-
-    # incorrect answers
+    if true_false == answer:
+        print("Correct")
     else:
-        # if the randomly generated number is the correct answer and the user enters true
-        # give feedback (correct)
-        if true_false == "true" and answer == correct_answer:
-            print("Correct")
-
-        # if the answer is incorrect and user enters false give feedback (correct)
-        elif true_false == "false":
-            print("Correct")
-
-        # if the user enters true and the answer is incorrect give feedback (incorrect)
-        else:
-            print("Incorrect")
-
+        print("Incorrect")
