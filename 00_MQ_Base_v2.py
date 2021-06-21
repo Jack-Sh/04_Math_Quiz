@@ -93,7 +93,6 @@ def int_check(question, low=None, high=None, exit_code=None):
 
 # Main Routine
 
-
 questions_answered = 0
 
 # Valid lists
@@ -190,6 +189,14 @@ while questions_answered != questions:
 
             question = "{} < {}".format(num_1, num_2)
 
+        correct_answer = eval(question)
+        answer = eval(question)
+
+        if correct_answer == True:
+            answer = "true"
+        else:
+            answer = "false"
+
     # prints randomly generated equation
     print(question)
 
@@ -199,23 +206,31 @@ while questions_answered != questions:
     # if the answer is correct and user enters true give feedback (correct)
     if chosen_num == 1:
         if true_false == "true":
-            print("correct")
+            print("Correct")
 
         # if the answer is incorrect and the user enetrs true give feedback (incorrect)
         else:
-            print("incorrect")
+            print("Incorrect")
+    
+    elif equation == "greater_lesser":
+        if true_false == answer:
+            print("Correct")
+
+        else:
+            print("Incorrect")
 
     # incorrect answers
     else:
         # if the randomly generated number is the correct answer and the user enters true
         # give feedback (correct)
         if true_false == "true" and answer == correct_answer:
-            print("correct")
+            print("Correct")
 
         # if the answer is incorrect and user enters false give feedback (correct)
         elif true_false == "false":
-            print("correct")
+            print("Correct")
 
         # if the user enters true and the answer is incorrect give feedback (incorrect)
         else:
-            print("incorrect")
+            print("Incorrect")
+
