@@ -97,9 +97,8 @@ questions_answered = 0
 
 # Valid lists
 yes_no_list = ["yes", "no"]
-equation_list = ["addition", "subtraction", "multiplication", "greater_lesser"]
+symbol_list = ["+", "-", "*", "<", ">", "=="]
 true_false_list = ["true", "false"]
-
 
 # Ask the user if they have played before
 played_before = "Have you played before? "
@@ -134,14 +133,14 @@ while questions_answered != questions:
     questions_answered += 1
 
     # generates a random equation
-    equation = random.choice(equation_list)
+    symbol = random.choice(symbol_list)
 
     # variable to choose between correct and incorrect answers (1 = correct, 2 = incorrect)
     chosen_num = random.randint(1, 2)
 
     # if the user doesn't want negatives for subtraction generate two numbers but ensure
     # that the first number is greater than the second
-    if equation == "subtraction" and allow_negative == "no":
+    if symbol == "-" and allow_negative == "no":
         num_2 = random.randint(lowest, highest)
         num_1 = random.randint(num_2, highest)
 
@@ -150,58 +149,26 @@ while questions_answered != questions:
         num_1 = random.randint(lowest, highest)
         num_2 = random.randint(lowest, highest)
 
-    # based off of the randomly chosen statement 
-    # output the equation with correct answer or an incorrect answer
-
-    # assign symbols to equations
-    if equation == "addition":
-        symbol = "+"
-
-    elif equation == "subtraction":
-        symbol = "-"
-
-    elif equation == "multiplication":
-        symbol = "*"
-
     # generate the correct equation (non printed format)
     num_question = "{} {} {}".format(num_1, symbol, num_2)
 
-    # generate the answer if the randomly generated number is 1
-    if chosen_num == 1:
-        correct_answer = eval(num_question)
-        answer = "true"
+    if symbol == "+" or "-" or "*":
 
-    # generate a random incorrect answer
-    else:
-        correct_answer = random.randint(lowest, highest)
-        answer = "false"
+        # generate the answer if the randomly generated number is 1
+        if chosen_num == 1:
+            correct_answer = eval(num_question)
+            answer = "true"
 
-    # add
-    if equation == "multiplication":
-        question = "{} x {} = {}".format(num_1, num_2, correct_answer)
-
-    elif equation == "addition" or "subtraction":
-        question = "{} {} {} = {}".format(num_1, symbol, num_2, correct_answer)
+        # generate a random incorrect answer
+        else:
+            correct_answer = random.randint(lowest, highest)
+            answer = "false"
 
     # greater_lesser equation
-    if equation == "greater_lesser":
-
-        # generate a number between 1 or 3 as we have 3 possible equarion variations
-        chosen_num = random.randint(1, 3)
-
-        # assign symbols
-        if chosen_num == 1:
-            symbol = "=="
-
-        elif chosen_num == 2:
-            symbol = "<"
-
-        else:
-            symbol = ">"
+    else:
 
         # evaluate the correct answer (true or false)
-        correct_answer = eval(question)
-        answer = ""
+        correct_answer = eval(num_question)
 
         # define the variable answer for later
         if correct_answer == True:
@@ -209,18 +176,23 @@ while questions_answered != questions:
         else:
             answer = "false"  
 
-    # different equation variations
+    if symbol == "*":
+        question = "{} x {} = {}".format(num_1, num_2, correct_answer)
 
-    question = "{} {} {}".format(num_1, symbol, num_2)
+    elif symbol == "+" or "-":
+        question = "{} {} {} = {}".format(num_1, symbol, num_2, correct_answer)
+    
+    else:
+        question = "{} {} {}".format(num_1, symbol, num_2)
 
     # prints randomly generated equation
     print(question)
 
     # asks user whether the equation is true or false
-    true_false = choice_checker("Is this equation True or False? ", true_false_list, "Please enter true or false")
+    user_choice = choice_checker("Is this equation True or False? ", true_false_list, "Please enter true or false")
 
     # gives feedback to user based on their answer
-    if true_false == answer:
+    if user_choice == answer:
         print("Correct")
 
     else:
