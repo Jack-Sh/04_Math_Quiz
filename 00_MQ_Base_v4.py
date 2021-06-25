@@ -97,7 +97,7 @@ questions_answered = 0
 
 # Valid lists
 yes_no_list = ["yes", "no"]
-symbol_list = ["+", "-", "*", "<", ">", "=="]
+symbol_list = ["<", ">", "=="]
 true_false_list = ["true", "false"]
 
 # Ask the user if they have played before
@@ -129,10 +129,10 @@ while questions_answered != questions:
     print(heading)
     print()
 
-    # add one to round counter
+    # add one to question counter
     questions_answered += 1
 
-    # generates a random equation
+    # generates a random symbol for each question
     symbol = random.choice(symbol_list)
 
     # variable to choose between correct and incorrect answers (1 = correct, 2 = incorrect)
@@ -149,48 +149,58 @@ while questions_answered != questions:
         num_1 = random.randint(lowest, highest)
         num_2 = random.randint(lowest, highest)
 
+    # changes the symbol to '==' if the generated numbers are the same and
+    # the symbol is either '<' or '>'
+    if symbol == "<" or symbol == ">" and num_1 == num_2:
+        symbol = "=="
+
     # generate the correct equation (non printed format)
     num_question = "{} {} {}".format(num_1, symbol, num_2)
 
+    # add, sub, mult questions
     if symbol == "+" or symbol == "-" or symbol == "*":
 
-        # generate the answer if the randomly generated number is 1
+        # generate the answer if the randomly generated number is 1 and define answer as true
         if chosen_num == 1:
             correct_answer = eval(num_question)
             answer = "true"
 
-        # generate a random incorrect answer
+        # generate a random incorrect answer and define answer as false
         else:
             correct_answer = random.randint(lowest, highest)
             answer = "false"
 
-    # greater_lesser equation
+    # greater, lesser, equals questions
     else:
-
+        
         # evaluate the correct answer (true or false)
         correct_answer = eval(num_question)
-        # question = "{} {} {}".format(num_1, symbol, num_2)
 
-        # define the variable answer for later
+        # define answer based on the num_question
         if correct_answer == True:
             answer = "true"
 
         else:
             answer = "false"  
 
+    # different question outputs
+
+    # multiplication question
     if symbol == "*":
         question = "{} x {} = {}".format(num_1, num_2, correct_answer)
 
+    # add, sub questions
     elif symbol == "+" or symbol == "-":
         question = "{} {} {} = {}".format(num_1, symbol, num_2, correct_answer)
 
+    # greater, lesser, equals questions
     else:
         question = "{} {} {}".format(num_1, symbol, num_2)
 
-    # prints randomly generated equation
+    # prints randomly generated question
     print(question)
 
-    # asks user whether the equation is true or false
+    # asks user whether the question is true or false
     user_choice = choice_checker("Is this equation True or False? ", true_false_list, "Please enter true or false")
 
     # gives feedback to user based on their answer
