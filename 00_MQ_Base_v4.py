@@ -31,54 +31,38 @@ def instructions():
     print()
     print("Next you will be asked to pick a number of questions")
     print()
-    print("The quiz will then begin for each question you will be given a math related question")
-    print("It could be multiplication, addition, subtraction or greater, lesser")
-    print("For each prompt you will be asked to is this statement True or False (or T, F)")
-    print("For example. Question 1: 2+2=4 is this true or false: True")
+    print("The quiz will then begin, for each question you will be given a math related question")
+    print("It could be multiplication, addition, subtraction or greater / lesser / equals")
+    print("For each prompt you will be asked, is this statement True or False? (you can type T, F aswell)")
+    print("For example. Question 1: 2 + 2 = 4 is this true or false: True")
     print()
     print("At the end you will be given a score and be asked if you want to see your quiz history")
-    print("This is a more in depth look rather than just getting a standard out of 10 score")
+    print("'Quiz History' is a more in depth look rather than just getting a standard out of 10 score")
     print()
     print("Have Fun!")
     print()
 
 
 # Function to check integers
-def int_check(question, low=None, high=None, exit_code=None):
+def int_check(question, low=None,):
 
     situation = ""
-
-    # If user has specified a low and a high
-    # number (eg. when guessing)
-    # set the situation to 'both'
-    if low is not None and high is not None:
-        situation = "both"
 
     # If user has only specified a low number
     # (eg. when entering high number)
     # set situation to 'low only'
-    elif low is not None and high is None:
+    if low is not None:
         situation = "low only"
 
     while True:
 
         response = input(question).lower()
-        if response == exit_code:
-            return response
 
         try:
             response = int(response)
 
-            # checks input is not too high or
-            # too low if both upper and lower bounds
-            # are specified
-            if situation == "both":
-                if response < low or response > high:
-                    print("Please enter a number between {} and {}".format(low, high))
-                    continue
-
             # checks input is not too low
-            elif situation == "low only":
+            if situation == "low only":
                 if response < low:
                     print("Please enter a number that is more than (or equal to) {}".format(low))
                     continue
@@ -97,7 +81,7 @@ questions_answered = 0
 
 # Valid lists
 yes_no_list = ["yes", "no"]
-symbol_list = ["<", ">", "=="]
+symbol_list = ["+", "-", "*", "<", ">", "=="]
 true_false_list = ["true", "false"]
 
 # Ask the user if they have played before
@@ -201,7 +185,7 @@ while questions_answered != questions:
     print(question)
 
     # asks user whether the question is true or false
-    user_choice = choice_checker("Is this equation True or False? ", true_false_list, "Please enter true or false")
+    user_choice = choice_checker("Is this equation True or False? ", true_false_list, "Please enter true or false (T or F)")
 
     # gives feedback to user based on their answer
     if user_choice == answer:
