@@ -24,7 +24,7 @@ def choice_checker(question, valid_list, error):
 # Function to display instructions when called
 def instructions():
     print()
-    print("Math Quiz!")
+    statement_generator("Math Quiz!", "=")
     print()
     print("First you will be asked to choose a number range (this can include negative numbers)")
     print("This determines the difficulty of the quiz")
@@ -39,8 +39,7 @@ def instructions():
     print("At the end you will be given a score and be asked if you want to see your quiz history")
     print("'Quiz History' is a more in depth look rather than just getting a standard out of 10 score")
     print()
-    print("Have Fun!")
-    print()
+    statement_generator("Have Fun!", "=")
 
 
 # Function to check integers
@@ -75,6 +74,17 @@ def int_check(question, low=None,):
             continue
 
 
+# Function to print five symbols on either side of specified statements
+def statement_generator(statement, decoration):
+
+    sides = decoration * 5
+    statement = "{} {} {}".format(sides, statement, sides)
+
+    print(statement)
+
+    return ""
+
+
 # Main Routine
 
 questions_answered = 0
@@ -98,13 +108,17 @@ if played_before_response == "no":
     instructions()
 
 # Asks for lowest and highest aswell as checking that their valid
+print()
+print("----------------")
 lowest = int_check("Lowest Number: ")
 highest = int_check("Highest Number: ", lowest + 1)
-
+print("----------------")
+print()
 # Ask user if they want to allow negatives in subtraction questions
 allow_negative = choice_checker("Do you want negatives in subtraction questions? ", yes_no_list, "Please enter yes or no ")
 
 # Ask for number of questions
+print()
 questions = int_check("How many questions would you like to answer? ", 1)
 
 # start of game loop
@@ -113,7 +127,7 @@ while questions_answered != questions:
     # generates and prints heading before every question
     heading = "Question {} of {}".format(questions_answered + 1, questions)
     print()
-    print(heading)
+    statement_generator(heading, "-")
     print()
 
     # add one to question counter
@@ -194,18 +208,18 @@ while questions_answered != questions:
         question = "{} {} {}".format(num_1, symbol, num_2)
 
     # prints randomly generated question
-    print(question)
+    statement_generator(question, "*")
 
     # asks user whether the question is true or false
     user_choice = choice_checker("Is this equation True or False? ", true_false_list, "Please enter true or false (T or F)")
 
     # gives feedback to user based on their answer
     if user_choice == tf_answer:
-        print("Correct")
+        statement_generator("Correct", "=")
         questions_correct += 1
 
     else:
-        print("Incorrect")
+        statement_generator("Incorrect", "~")
         questions_incorrect += 1
 
     # generates outcome format for quiz history
@@ -216,8 +230,8 @@ while questions_answered != questions:
 
 # generates score and prints output
 print()
-print("|--- SCORE ---|")
-score = "     {} / {}".format(questions_correct, questions)
+statement_generator("Score", "-")
+score = "      {} / {}".format(questions_correct, questions)
 print(score)
 print()
 
@@ -226,7 +240,7 @@ percent_correct = questions_correct / questions * 100
 percent_incorrect = questions_incorrect / questions * 100
 
 # generate stats and prints output
-print("|----------   STATS   ----------|")
+statement_generator("Statistics", "-")
 stats = "Correct - {:.0f}%  |  Incorrect - {:.0f}%".format(percent_correct, percent_incorrect)
 print(stats)
 
@@ -237,6 +251,6 @@ quiz_response = choice_checker("Do you want to see the quiz history? ", yes_no_l
 # if they do then print the history in a list
 if quiz_response == "yes":
     print()
-    print("=== Quiz History ===")
+    statement_generator("Quiz History", "-")
     for quiz in quiz_summary:
         print(quiz)
