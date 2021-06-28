@@ -24,7 +24,7 @@ def choice_checker(question, valid_list, error):
 # Function to display instructions when called
 def instructions():
     print()
-    statement_generator("Math Quiz!", "=")
+    statement_generator("Math Quiz", "=")
     print()
     print("First you will be asked to choose a number range (this can include negative numbers)")
     print("This determines the difficulty of the quiz")
