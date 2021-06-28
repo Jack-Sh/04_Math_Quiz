@@ -78,6 +78,8 @@ def int_check(question, low=None,):
 # Main Routine
 
 questions_answered = 0
+questions_correct = 0
+questions_incorrect = 0
 
 # Valid lists
 yes_no_list = ["yes", "no"]
@@ -190,6 +192,24 @@ while questions_answered != questions:
     # gives feedback to user based on their answer
     if user_choice == answer:
         print("Correct")
+        questions_correct += 1
 
     else:
         print("Incorrect")
+        questions_incorrect += 1
+
+# generates score and prints output
+print()
+print("|--- SCORE ---|")
+score = "     {} / {}".format(questions_correct, questions)
+print(score)
+print()
+
+# caculates quiz stats
+percent_correct = questions_correct / questions * 100
+percent_incorrect = questions_incorrect / questions * 100
+
+# generate stats and prints output
+print("|----------   STATS   ----------|")
+stats = "Correct - {:.0f}%  |  Incorrect - {:.0f}%".format(percent_correct, percent_incorrect)
+print(stats)
