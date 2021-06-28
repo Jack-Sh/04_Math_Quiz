@@ -85,6 +85,7 @@ questions_incorrect = 0
 yes_no_list = ["yes", "no"]
 symbol_list = ["+", "-", "*", "<", ">", "=="]
 true_false_list = ["true", "false"]
+quiz_summary = []
 
 # Ask the user if they have played before
 played_before = "Have you played before? "
@@ -148,36 +149,45 @@ while questions_answered != questions:
 
         # generate the answer if the randomly generated number is 1 and define answer as true
         if chosen_num == 1:
-            correct_answer = eval(num_question)
-            answer = "true"
+            answer = eval(num_question)
+            tf_answer = "true"
 
         # generate a random incorrect answer and define answer as false
         else:
-            correct_answer = random.randint(lowest, highest)
-            answer = "false"
+            correct_answer = eval(num_question)
+            answer = random.randint(lowest, highest)
+
+            # if the randomly generated answer is the correct answer
+            # the answer = true
+            if answer == correct_answer:
+                tf_answer = "true"
+
+            # otherwise the answer is false
+            else:
+                tf_answer = "false"
 
     # greater, lesser, equals questions
     else:
         
         # evaluate the correct answer (true or false)
-        correct_answer = eval(num_question)
+        answer = eval(num_question)
 
         # define answer based on the num_question
-        if correct_answer == True:
-            answer = "true"
+        if answer == True:
+            tf_answer = "true"
 
         else:
-            answer = "false"  
+            tf_answer = "false"
 
     # different question outputs
 
     # multiplication question
     if symbol == "*":
-        question = "{} x {} = {}".format(num_1, num_2, correct_answer)
+        question = "{} x {} = {}".format(num_1, num_2, answer)
 
     # add, sub questions
     elif symbol == "+" or symbol == "-":
-        question = "{} {} {} = {}".format(num_1, symbol, num_2, correct_answer)
+        question = "{} {} {} = {}".format(num_1, symbol, num_2, answer)
 
     # greater, lesser, equals questions
     else:
@@ -190,13 +200,19 @@ while questions_answered != questions:
     user_choice = choice_checker("Is this equation True or False? ", true_false_list, "Please enter true or false (T or F)")
 
     # gives feedback to user based on their answer
-    if user_choice == answer:
+    if user_choice == tf_answer:
         print("Correct")
         questions_correct += 1
 
     else:
         print("Incorrect")
         questions_incorrect += 1
+
+    # generates outcome format for quiz history
+    outcome = "Question {}: {} your answer: {} | correct answer: {}".format(questions_answered, question, user_choice, tf_answer)
+
+    # arranges all outcomes in a list
+    quiz_summary.append(outcome)
 
 # generates score and prints output
 print()
@@ -205,7 +221,7 @@ score = "     {} / {}".format(questions_correct, questions)
 print(score)
 print()
 
-# caculates quiz stats
+# calculates quiz stats
 percent_correct = questions_correct / questions * 100
 percent_incorrect = questions_incorrect / questions * 100
 
@@ -213,3 +229,14 @@ percent_incorrect = questions_incorrect / questions * 100
 print("|----------   STATS   ----------|")
 stats = "Correct - {:.0f}%  |  Incorrect - {:.0f}%".format(percent_correct, percent_incorrect)
 print(stats)
+
+# asks user whether they want to see their quiz history
+print()
+quiz_response = choice_checker("Do you want to see the quiz history? ", yes_no_list, "Please enter yes or no")
+
+# if they do then print the history in a list
+if quiz_response == "yes":
+    print()
+    print("=== Quiz History ===")
+    for quiz in quiz_summary:
+        print(quiz)
